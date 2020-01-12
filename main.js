@@ -1,3 +1,9 @@
+const fs = require('fs');
+fs.opendir(`${__dirname}/data`, (err, dir) => {
+    if (err)
+        fs.mkdirSync(`${__dirname}/data`);
+});
+
 const { token } = require('./config.json');
 
 const VK = require('vk-io');
@@ -10,7 +16,7 @@ const shield = new VK({
     pollingGroupId: -190394993
 });
 
-shield.updates.on(['chat_kick_user', 'chat_invite_user', 'chat_invite_user_by_link'], (context, next) => {
+shield.updates.on(['chat_kick_user', 'chat_invite_user', 'chat_invite_user_by_link'], async (context, next) => {
     let [user] = await shield.api.users.get({ user_ids: context.eventMemberId });
 
     if (context.isGroup || (/bot/miug).test(user.first_name) || (/bot/miug).test(user.last_name) || (/бот/miug).test(user.first_name) || (/бот/miug).test(user.last_name))
