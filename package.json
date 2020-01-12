@@ -1,5 +1,10 @@
 {
   "dependencies": {
-    "vk-io": "^4.0.0-rc.30"
+    "vk-io": "^4.0.0-rc.30",
+    "better-sqlite-pool": "^0.2.3",
+    "enmap": "^5.2.4"
+  },
+  "scripts": {
+    "start": "node main.js"
   }
 }
