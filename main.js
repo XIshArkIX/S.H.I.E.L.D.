@@ -31,6 +31,8 @@ shield.updates.on(['chat_kick_user', 'chat_invite_user', 'chat_invite_user_by_li
                 member_id: context.eventMemberId
             })
         ]);
+
+    await next();
 });
 
 shield.updates.on(['message', 'new_message', 'edit_message'], async (context, next) => {
@@ -57,7 +59,7 @@ shield.updates.on(['message', 'new_message', 'edit_message'], async (context, ne
             banned.pushIn('banned', `${context.peerId}`, context.senderId, false)
         ]);
 
-    if (msg.startsWith('http'))
+    if (msg.startsWith('http') && !msg.includes('statbot.info'))
         return Promise.all([
             context.send('Уничтожаю подрывую деятельность!'),
             shield.api.messages.removeChatUser({
